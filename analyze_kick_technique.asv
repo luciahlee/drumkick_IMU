@@ -2,7 +2,6 @@
 %% Final Project %%
 %% Authors: Lucia Lee, Nathan Kuo, Keerthi Marri, Mason Niu
 clear
-close all;
 
 % Load the data 
 dataTab = readtable('initial_data/2026_03_31_11h_58m_55s_heeltoe.csv');
@@ -28,9 +27,6 @@ acc_z=dataTab.accl_z*g;
 mag_x=dataTab.mag_x;
 mag_y=dataTab.mag_y;
 mag_z=dataTab.mag_z;
-
-% Normalize the accelerometer data
-IMU_accel_norm = sqrt(acc_x.^2 + acc_y.^2 + acc_z.^2);
 
 %From the data that was loaded, we will organize the gyro data and
 %accelerometer data
@@ -68,51 +64,3 @@ IMU will be placed on the outside of the foot with the x-axis pointing to
 the toes, y-axis pointing up, and the z axis pointing in towards the feet.
 %}
 
-N  = length(tvec_s);
-dt = mean(diff(tvec_s));
-% EKF parameters
-noise_gyro  = 0.001;
-noise_accel = 0.020;
-noise_mag   = 0.2;
-
-bias_w   = [0 0 0];   % estimated biases
-bias_a   = 0;         % scalar accel bias 
-initX    = [1;0;0;0]; % identity quaternion
-initP    = 1e-4*eye(4);
-epsilon_acc = 0.5;    % example threshold 
-
-% Run EKF
-[allX, allP, flags] = IMU_Orientation_EKF_agm_IOEROB( ...
-    gyros, accels, mags, dt, ...
-    bias_w, bias_a, initX, initP, ...
-    noise_gyro, noise_accel, noise_mag, epsilon_acc);
-
-% Kick detection
-gyro_mag = sqrt(sum(gyros.^2, 2));
-
-T_gyro = 12.0;   % rad/s
-is_stance = (gyro_mag < T_gyro);
-
-% Stance intervals
-stance_starts = find(diff([0; is_stance]) == 1);
-stance_ends   = find(diff([is_stance; 0]) == -1);
-
-% Midpoints = stride markers
-stance_mid = round((stance_starts + stance_ends)/2);
-
-stride_start_idx = stance_mid(1:end-1);
-stride_end_idx   = stance_mid(2:end);
-
-num_strides = length(stride_start_idx);
-fprintf('Detected %d strides\n', num_strides);
-
-% Plot with markers
-figure; hold on;
-plot(tvec_s, gyro_mag, 'b');
-yline(T_gyro, 'r--', 'Threshold');
-for i = 1:num_strides
-    xline(tvec_s(stride_start_idx(i)), 'k--');
-end
-title('Gyro Magnitude with Stride Boundaries')
-xlabel('Time (s)')
-ylabel('||\omega|| (rad/s)')
