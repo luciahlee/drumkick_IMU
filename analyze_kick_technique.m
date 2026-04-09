@@ -88,15 +88,46 @@ epsilon_acc = 0.5;    % example threshold
     noise_gyro, noise_accel, noise_mag, epsilon_acc);
 
 % Kick detection
+% Nathan HW code
 gyro_mag = sqrt(sum(gyros.^2, 2));
-
 T_gyro = 12.0;   % rad/s
 is_stance = (gyro_mag < T_gyro);
-
-% Stance intervals
 stance_starts = find(diff([0; is_stance]) == 1);
 stance_ends   = find(diff([is_stance; 0]) == -1);
+% Lucia HW code
+start = 1;
+finish = 739;
+Stance_Duration_Min = 90; %.1 seconds - 100 steps
+Gyro_threshold = 1.4; %rad/sec
+Acc_threshold = 0.8; %m/s^2
+stride_plot = zeros(length(omega_y), 1);
+on = 0;
 
+% Stance intervals
+for i = start:finish 
+    if abs(omega_y(i)) < Gyro_threshold && abs(acc_y(i)) < Acc_threshold && i - on >= Stance_Duration_Min
+        stride_plot(i) = 1; % Mark the stride in the stride_plot array
+        % Mark the stride
+        hold on;
+        plot(tvec_s(i), 0, 'bo'); % Mark the point on the plot
+        if stride_plot(i) == 1
+            on = i;
+        end
+    end
+end
+
+figure;
+plot(tvec_s, stride_plot);
+title("Peaks when data meets gyro and acc threshold")
+xlabel('Time (s)');
+[row, col] = find(stride_plot);
+[pks, locs] = findpeaks(stride_plot);
+
+stride_count = length(pks);
+
+fprintf('Number of strides detected: %d\n', stride_count);
+
+% Nathan HW code
 % Midpoints = stride markers
 stance_mid = round((stance_starts + stance_ends)/2);
 
