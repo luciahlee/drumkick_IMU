@@ -16,7 +16,7 @@ time, accl_x, accl_y, accl_z, gyro_x, gyro_y, gyro_z
 clear; clc; close all;
 
 %% Load Data
-data = readtable('initial_data/2026_03_31_11h_58m_55s_heeltoe.csv');
+data = readtable('initial_data/2026_03_31_11h_58m_11s_bearing the beater.csv');
 
 time = (data.timestamp - data.timestamp(1)) / 1000;
 
