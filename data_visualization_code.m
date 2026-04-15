@@ -5,15 +5,55 @@
 clear;
 close all;
 
-% Arguments: (1) Path to CSV, (2) Name of the trial for plot titles
-analyzeAndPlotIMU('initial_data/heel_down_side.csv', 'Heel Down Side');
-analyzeAndPlotIMU('initial_data/heel_up_side.csv', 'Heel Up Side');
-analyzeAndPlotIMU('initial_data/heel_up_down_side.csv', 'Heel Up/Down Side');
+% INITIAL CALIBRATION / TEST DATA
+analyzeAndPlotIMU('initial_data/heel_down_side.csv', 'Heel Down Side', 'heeldown');
+analyzeAndPlotIMU('initial_data/heel_up_side.csv', 'Heel Up Side', 'heelup');
+analyzeAndPlotIMU('initial_data/heel_up_down_side.csv', 'Heel Up/Down Side', 'heelupdown');
+
+% PARTICIPANT 1 DATA
+
+% Pop
+analyzeAndPlotIMU('initial_data/p1p2/participant1/2026_04_14_04h_24m_19s_pop1p1.csv', 'P1 Pop 1', 'p1pop1');
+analyzeAndPlotIMU('initial_data/p1p2/participant1/2026_04_14_04h_40m_00s_pop2p1.csv', 'P1 Pop 2', 'p1pop2');
+
+% Jazz
+analyzeAndPlotIMU('initial_data/p1p2/participant1/2026_04_14_04h_55m_04s_jazzp1p1.csv', 'P1 Jazz 1', 'p1jazz1');
+
+% Shuffle
+analyzeAndPlotIMU('initial_data/p1p2/participant1/2026_04_14_05h_06m_27s_shuffle1p1.csv', 'P1 Shuffle 1', 'p1shuffle1');
+analyzeAndPlotIMU('initial_data/p1p2/participant1/2026_04_14_05h_12m_12s_shuffle2p1.csv', 'P1 Shuffle 2', 'p1shuffle2');
+
+% Rock
+analyzeAndPlotIMU('initial_data/p1p2/participant1/2026_04_14_14h_09m_18s_rock1p1.csv', 'P1 Rock 1', 'p1rock1');
+analyzeAndPlotIMU('initial_data/p1p2/participant1/2026_04_14_14h_12m_23s_rock2p1.csv', 'P1 Rock 2', 'p1rock2');
 
 
-function analyzeAndPlotIMU(filename, trialName)
+% PARTICIPANT 2 DATA
+
+% Pop
+analyzeAndPlotIMU('initial_data/p1p2/participant2/2026_04_14_17h_46m_14s_pop1p2.csv', 'P2 Pop 1', 'p2pop1');
+analyzeAndPlotIMU('initial_data/p1p2/participant2/2026_04_14_17h_49m_59s_pop2p2.csv', 'P2 Pop 2', 'p2pop2');
+
+% Rock
+analyzeAndPlotIMU('initial_data/p1p2/participant2/2026_04_14_17h_52m_21s_rock1p2.csv', 'P2 Rock 1', 'p2rock1');
+analyzeAndPlotIMU('initial_data/p1p2/participant2/2026_04_14_18h_06m_10s_rock2p2.csv', 'P2 Rock 2', 'p2rock2');
+
+% Jazz
+analyzeAndPlotIMU('initial_data/p1p2/participant2/2026_04_14_17h_57m_35s_jazz1p2.csv', 'P2 Jazz 1', 'p2jazz1');
+
+% Shuffle
+analyzeAndPlotIMU('initial_data/p1p2/participant2/2026_04_14_18h_00m_08s_shuffle1p2.csv', 'P2 Shuffle 1', 'p2shuffle1');
+analyzeAndPlotIMU('initial_data/p1p2/participant2/2026_04_14_18h_02m_03s_shuffle2p2.csv', 'P2 Shuffle 2', 'p2shuffle2');
+
+fprintf('=== ALL DATA PROCESSED AND SAVED ===\n');
+
+
+function analyzeAndPlotIMU(filename, trialName, filePrefix)
     fprintf('--- Processing: %s ---\n', trialName);
     
+    % Extract the directory path from the filename
+    [filepath, ~, ~] = fileparts(filename);
+
     % Load the data 
     dataTab = readtable(filename);
 
@@ -48,13 +88,13 @@ function analyzeAndPlotIMU(filename, trialName)
     mags = [mag_x mag_y mag_z];
 
     % PLOT 1: All Sensors Over Time (Combined Axes)
-    figure('Name', [trialName ' - All Sensor Data']);
+    fig1 = figure('Name', [trialName ' - All Sensor Data'], 'visible', 'off');
     sgtitle([trialName ' - Magnetometer, Gyroscope, and Accelerometer']);
     
     subplot(311)
     plot(tvec_s, mags)
     legend('Mx', 'My', 'Mz')
-    ylabel('Mag')
+    ylabel('Mag (\muT)')
 
     subplot(312)
     plot(tvec_s, gyros)
@@ -69,8 +109,12 @@ function analyzeAndPlotIMU(filename, trialName)
     xlabel('Time (s)')
     ylabel('Accel (m/s^2)')
 
+    % Save to the exact directory where the CSV lives
+    exportgraphics(fig1, fullfile(filepath, [filePrefix 'main.png']), 'Resolution', 300);
+    close(fig1);
+
     % PLOT 2: Angular Velocity Separated by Axis (Spread Apart)
-    figure('Name', [trialName ' - Angular Velocity Separated']);
+    fig2 = figure('Name', [trialName ' - Angular Velocity Separated'], 'visible', 'off');
     sgtitle([trialName ' - Angular Velocity Separated by Axis']);
 
     subplot(311)
@@ -89,8 +133,11 @@ function analyzeAndPlotIMU(filename, trialName)
     ylabel('Gz (rad/s)')
     grid on
 
+    exportgraphics(fig2, fullfile(filepath, [filePrefix 'ang.png']), 'Resolution', 300);
+    close(fig2);
+
     % PLOT 3: Acceleration Separated by Axis (Spread Apart)
-    figure('Name', [trialName ' - Acceleration Separated']);
+    fig3 = figure('Name', [trialName ' - Acceleration Separated'], 'visible', 'off');
     sgtitle([trialName ' - Acceleration Separated by Axis']);
 
     subplot(411)
@@ -114,5 +161,7 @@ function analyzeAndPlotIMU(filename, trialName)
     ylabel('Norm (m/s^2)')
     grid on
 
-end
+    exportgraphics(fig3, fullfile(filepath, [filePrefix 'acc.png']), 'Resolution', 300);
+    close(fig3);
 
+end
