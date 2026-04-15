@@ -5,7 +5,7 @@ clear
 close all;
 
 % Load the data 
-dataTab = readtable('initial_data/2026_03_31_11h_58m_55s_heeltoe.csv');
+dataTab = readtable('initial_data/p1p2/participant3/2026_04_14_21h_44m_59s_pop1p3.csv');
 
 %Define gravity
 g=9.80665; %m/s^s
