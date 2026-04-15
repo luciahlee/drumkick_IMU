@@ -63,6 +63,22 @@ analyzeAndPlotIMU('initial_data/p1p2/participant3/2026_04_14_22h_08m_27s_shuffle
 analyzeAndPlotIMU('initial_data/p1p2/participant3/2026_04_14_22h_10m_59s_rock1p3.csv', 'P3 Rock 1', 'p3rock1');
 analyzeAndPlotIMU('initial_data/p1p2/participant3/2026_04_14_22h_17m_25s_rock2p3.csv', 'P3 Rock 2', 'p3rock2');
 
+% PARTICIPANT 4 DATA
+% Pop
+analyzeAndPlotIMU('initial_data/p1p2/participant4/2026_04_15_14h_10m_21s_pop1p4.csv', 'P4 Pop 1', 'p4pop1');
+analyzeAndPlotIMU('initial_data/p1p2/participant4/2026_04_15_14h_18m_45s_pop2p4.csv', 'P4 Pop 2 (Run 1)', 'p4pop2_run1');
+analyzeAndPlotIMU('initial_data/p1p2/participant4/2026_04_15_14h_23m_51s_pop2p4.csv', 'P4 Pop 2 (Run 2)', 'p4pop2_run2');
+
+% Jazz
+analyzeAndPlotIMU('initial_data/p1p2/participant4/2026_04_15_14h_28m_48s_jazz1p4.csv', 'P4 Jazz 1', 'p4jazz1');
+
+% Shuffle
+analyzeAndPlotIMU('initial_data/p1p2/participant4/2026_04_15_14h_31m_44s_shuffle1p4.csv', 'P4 Shuffle 1', 'p4shuffle1');
+analyzeAndPlotIMU('initial_data/p1p2/participant4/2026_04_15_14h_35m_17s_shuffle2p4.csv', 'P4 Shuffle 2', 'p4shuffle2');
+
+% Rock
+analyzeAndPlotIMU('initial_data/p1p2/participant4/2026_04_15_14h_58m_00s_rock1p4.csv', 'P4 Rock 1', 'p4rock1');
+
 fprintf('=== ALL DATA PROCESSED AND SAVED ===\n');
 
 
@@ -122,7 +138,7 @@ function analyzeAndPlotIMU(filename, trialName, filePrefix)
     subplot(313)
     plot(tvec_s, accels)
     hold on
-    plot(tvec_s, IMU_accel_norm, 'k', 'LineWidth', 1.5)
+    plot(tvec_s, IMU_accel_norm, 'k')
     legend('Ax', 'Ay', 'Az','Norm')
     xlabel('Time (s)')
     ylabel('Accel (m/s^2)')
