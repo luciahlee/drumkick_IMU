@@ -16,35 +16,52 @@ time, accl_x, accl_y, accl_z, gyro_x, gyro_y, gyro_z
 %% Setup
 clear; clc; close all;
 
-%% Load Data
-% pop1 data: Lush Life
-data = readtable('initial_data/p1p2/participant3/2026_04_14_21h_44m_59s_pop1p3.csv');
-%data = readtable('initial_data/p1p2/participant2/2026_04_14_17h_46m_14s_pop1p2.csv');
-%data = readtable('initial_data/p1p2/participant4/2026_04_15_14h_10m_21s_pop1p4.csv');
+%% Load Data:
+% DATA FOR EACH PARTICIPANT IS P1, P2, P3, AND P4
+% pop1 data: Lush Life - Zara Larsson
 %data = readtable('initial_data/p1p2/participant1/2026_04_14_04h_24m_19s_pop1p1.csv');
-
-% pop2 data: Sugar
+%data = readtable('initial_data/p1p2/participant2/2026_04_14_17h_46m_14s_pop1p2.csv');
 %data = readtable('initial_data/p1p2/participant3/2026_04_14_21h_44m_59s_pop1p3.csv');
-%data = readtable('initial_data/p1p2/participant2/2026_04_14_17h_46m_14s_pop1p2.csv');
-%data = readtable('initial_data/p1p2/participant4/2026_04_15_14h_18m_45s_pop2p4.csv');
-%data = readtable('initial_data/p1p2/participant1/2026_04_14_04h_24m_19s_pop1p1.csv');
+%data = readtable('initial_data/p1p2/participant4/2026_04_15_14h_10m_21s_pop1p4.csv');
 
-% shuffle1 data: Isn't She Lovely
-%data = readtable('initial_data/p1p2/participant3/2026_04_14_21h_57m_26s_shuffle1p3');
-%data = readtable('initial_data/p1p2/participant2/2026_04_14_18h_00m_08s_shuffle1p2');
+
+%% pop2 data: Sugar - Maroon 5
+%data = readtable('initial_data/p1p2/participant1/2026_04_14_04h_24m_19s_pop1p1.csv');
+%data = readtable('initial_data/p1p2/participant2/2026_04_14_17h_46m_14s_pop1p2.csv');
+%data = readtable('initial_data/p1p2/participant3/2026_04_14_21h_44m_59s_pop1p3.csv');
+%data = readtable('initial_data/p1p2/participant4/2026_04_15_14h_18m_45s_pop2p4.csv');
+
+%% jazz1 data: The Passenger - Iggy Pop
+%data = readtable('initial_data/p1p2/participant1/2026_04_14_04h_55m_04s_jazzp1p1.csv');
+%data = readtable('initial_data/p1p2/participant2/2026_04_14_17h_57m_35s_jazz1p2.csv');
+%data = readtable('initial_data/p1p2/participant3/2026_04_14_21h_53m_42s_jazz1p3.csv');
+%data = readtable('initial_data/p1p2/participant4/2026_04_15_14h_28m_48s_jazz1p4.csv');
+
+
+%% shuffle1 data: Isn't She Lovely - Stevie Wonder
 %data = readtable('initial_data/p1p2/participant1/2026_04_14_05h_06m_27s_shuffle1p1.csv');
+%data = readtable('initial_data/p1p2/participant2/2026_04_14_18h_00m_08s_shuffle1p2.csv');
+%data = readtable('initial_data/p1p2/participant3/2026_04_14_21h_57m_26s_shuffle1p3.csv');
 %data = readtable('initial_data/p1p2/participant4/2026_04_15_14h_31m_44s_shuffle1p4.csv');
 
-% shuffle2 data: DILIH
-%data = readtable('initial_data/p1p2/participant3/2026_04_14_22h_08m_27s_shuffle2p3');
-%data = readtable('initial_data/p1p2/participant1/2026_04_14_05h_12m_12s_shuffle2p1');
-%data = readtable('initial_data\p1p2\participant4\2026_04_15_14h_35m_17s_shuffle2p4.csv');
+%% shuffle2 data: Drop it Like it's Hot - Snoop Dogg
+%data = readtable('initial_data/p1p2/participant1/2026_04_14_05h_12m_12s_shuffle2p1.csv');
+%data = readtable('initial_data/p1p2/participant2/2026_04_14_18h_02m_03s_shuffle2p2.csv');
+%data = readtable('initial_data/p1p2/participant3/2026_04_14_22h_08m_27s_shuffle2p3.csv');
+%data = readtable('initial_data/p1p2/participant4/2026_04_15_14h_35m_17s_shuffle2p4.csv');
 
-% rock1 data: Still Into You
-%data = readtable('initial_data\p1p2\participant4\2026_04_15_14h_58m_00s_rock1p4.csv');
+%% rock1 data: Still Into You - Paramore
+%data = readtable('initial_data/p1p2/participant1/2026_04_14_14h_09m_18s_rock1p1.csv');
+%data = readtable('initial_data/p1p2/participant2/2026_04_14_17h_52m_21s_rock1p2.csv');
+%data = readtable('initial_data/p1p2/participant3/2026_04_14_22h_10m_59s_rock1p3.csv')
+%data = readtable('initial_data/p1p2/participant4/2026_04_15_14h_58m_00s_rock1p4.csv');
 
-% jazz1 data: The Passenger
-%data = readtable('initial_data\p1p2\participant4\2026_04_15_14h_28m_48s_jazz1p4.csv');
+
+%% rock2 data: In the End - Linkin Park
+%data = readtable('initial_data/p1p2/participant1/2026_04_14_14h_12m_23s_rock2p1.csv');
+%data = readtable('initial_data/p1p2/participant2/2026_04_14_18h_06m_10s_rock2p2.csv');
+%data = readtable('initial_data/p1p2/participant3/2026_04_14_22h_17m_25s_rock2p3.csv');
+%data = readtable('initial_data/p1p2/participant4/') NO P4 DATA?
 
 
 time = (data.timestamp - data.timestamp(1)) / 1000;
@@ -157,6 +174,30 @@ ylabel('|Negative Gyro Z Peak|');
 title('Heel-Up vs Heel-Down Classification');
 grid on;
 
+%% Classification Summary
+
+% Count each category
+num_heel_up = sum(heel_type == "Heel-Up");
+num_heel_down = sum(heel_type == "Heel-Down");
+num_unclear = sum(heel_type == "Unclear");
+
+counts = [num_heel_up, num_heel_down, num_unclear];
+labels = {'Heel-Up', 'Heel-Down', 'Unclear'};
+
+% Bar graph
+figure;
+bar(counts);
+set(gca, 'XTickLabel', labels);
+ylabel('Number of Kicks');
+title('Kick Technique Distribution');
+grid on;
+
+% Add values on top of bars
+for i = 1:length(counts)
+    text(i, counts(i) + 0.5, num2str(counts(i)), ...
+        'HorizontalAlignment', 'center');
+end
+
 %% Output Results
 fprintf('Kicks detected: %d\n', num_kicks);
 fprintf('Average tempo: %.2f kicks/sec\n', avg_tempo);
@@ -166,3 +207,16 @@ results = table(kick_times, pos_peak, neg_peak, heel_type, ...
     'VariableNames', {'Time','PosPeak','NegPeak','Technique'});
 
 disp(results);
+
+%% Print Classification Breakdown
+
+total_kicks = num_kicks;
+
+pct_heel_up = (num_heel_up / total_kicks) * 100;
+pct_heel_down = (num_heel_down / total_kicks) * 100;
+pct_unclear = (num_unclear / total_kicks) * 100;
+
+fprintf('\n--- Technique Breakdown ---\n');
+fprintf('Heel-Up:   %d (%.1f%%)\n', num_heel_up, pct_heel_up);
+fprintf('Heel-Down: %d (%.1f%%)\n', num_heel_down, pct_heel_down);
+fprintf('Unclear:   %d (%.1f%%)\n', num_unclear, pct_unclear);
