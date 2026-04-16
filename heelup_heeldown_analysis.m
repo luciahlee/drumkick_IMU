@@ -18,7 +18,7 @@ clear; clc; close all;
 
 %% Load Data:
 % DATA FOR EACH PARTICIPANT IS P1, P2, P3, AND P4
-% pop1 data: Lush Life - Zara Larsson
+%% pop1 data: Lush Life - Zara Larsson
 %data = readtable('initial_data/p1p2/participant1/2026_04_14_04h_24m_19s_pop1p1.csv');
 %data = readtable('initial_data/p1p2/participant2/2026_04_14_17h_46m_14s_pop1p2.csv');
 %data = readtable('initial_data/p1p2/participant3/2026_04_14_21h_44m_59s_pop1p3.csv');
@@ -53,7 +53,7 @@ clear; clc; close all;
 %% rock1 data: Still Into You - Paramore
 %data = readtable('initial_data/p1p2/participant1/2026_04_14_14h_09m_18s_rock1p1.csv');
 %data = readtable('initial_data/p1p2/participant2/2026_04_14_17h_52m_21s_rock1p2.csv');
-%data = readtable('initial_data/p1p2/participant3/2026_04_14_22h_10m_59s_rock1p3.csv')
+%data = readtable('initial_data/p1p2/participant3/2026_04_14_22h_10m_59s_rock1p3.csv');
 %data = readtable('initial_data/p1p2/participant4/2026_04_15_14h_58m_00s_rock1p4.csv');
 
 
@@ -71,8 +71,8 @@ gyros  = data{:, {'gyro_x','gyro_y','gyro_z'}};
 
 fs = 1 / mean(diff(time)); % sampling frequency
 
-% cutoff after the initial calibration drumkick
-start_idx_global = 3000; % CHANGE THIS ACCORDING TO STARTING TIMESTAMP
+%% cutoff after the initial calibration drumkick
+start_idx_global = 2000; % CHANGE THIS ACCORDING TO STARTING TIMESTAMP
 
 time   = time(start_idx_global:end);
 accels = accels(start_idx_global:end, :);
